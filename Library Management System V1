@@ -1,0 +1,94 @@
+books = []
+
+def show_menu():
+    print("\n=== Library Management System ===")
+    print("1. Add book")
+    print("2. View all books")
+    print("3. Search by title")
+    print("4. Borrow a book")
+    print("5. Return a book")
+    print("6. Remove a book")
+    print("7. Exit")
+
+def add_book():
+    title = input("Enter book title: ")
+    author = input("Enter author: ")
+    year = input("Enter year: ")
+    book = {"title": title, "author": author, "year": year, "status": "Available"}
+    books.append(book)
+    print("Book added successfully.")
+
+def view_books():
+    if len(books) == 0:
+        print("No books in the library.")
+        return
+    print("\nList of Books:")
+    i = 1
+    for b in books:
+        print(i, ".", b["title"], "by", b["author"], "(", b["year"], ")", "-", b["status"])
+        i += 1
+
+def search_book():
+    name = input("Enter title to search: ")
+    found = False
+    for b in books:
+        if name.lower() in b["title"].lower():
+            print("Found ->", b["title"], "by", b["author"], "(", b["year"], ")", "-", b["status"])
+            found = True
+    if not found:
+        print("No matching books found.")
+
+def borrow_book():
+    title = input("Enter title to borrow: ")
+    for b in books:
+        if b["title"].lower() == title.lower():
+            if b["status"] == "Available":
+                b["status"] = "Borrowed"
+                print("Book borrowed successfully.")
+            else:
+                print("Book already borrowed.")
+            return
+    print("Book not found.")
+
+def return_book():
+    title = input("Enter title to return: ")
+    for b in books:
+        if b["title"].lower() == title.lower():
+            if b["status"] == "Borrowed":
+                b["status"] = "Available"
+                print("Book returned.")
+            else:
+                print("Book was not borrowed.")
+            return
+    print("Book not found.")
+
+def remove_book():
+    title = input("Enter title to remove: ")
+    for b in books:
+        if b["title"].lower() == title.lower():
+            books.remove(b)
+            print("Book removed from library.")
+            return
+    print("Book not found.")
+
+while True:
+    show_menu()
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        add_book()
+    elif choice == "2":
+        view_books()
+    elif choice == "3":
+        search_book()
+    elif choice == "4":
+        borrow_book()
+    elif choice == "5":
+        return_book()
+    elif choice == "6":
+        remove_book()
+    elif choice == "7":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice.")
