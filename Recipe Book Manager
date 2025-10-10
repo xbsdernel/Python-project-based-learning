@@ -1,0 +1,102 @@
+recipes = {}
+
+def add_recipe():
+    print("Enter recipe name:")
+    name = input()
+    if name in recipes:
+        print("Recipe already exists!")
+        return
+
+    print("Enter ingredients (separated by commas):")
+    ingredients = input().split(",")
+
+    print("Enter instructions:")
+    instructions = input()
+
+    recipes[name] = {
+        "ingredients": ingredients,
+        "instructions": instructions
+    }
+
+    print("Recipe added successfully!\n")
+
+
+def view_recipes():
+    if len(recipes) == 0:
+        print("No recipes found!\n")
+        return
+
+    print("Recipes:")
+    for name in recipes:
+        print("-", name)
+    print()
+
+
+def view_recipe_details():
+    print("Enter recipe name to view:")
+    name = input()
+
+    if name not in recipes:
+        print("Recipe not found!\n")
+        return
+
+    print("Recipe Name:", name)
+    print("Ingredients:", ", ".join(recipes[name]["ingredients"]))
+    print("Instructions:", recipes[name]["instructions"])
+    print()
+
+
+def delete_recipe():
+    print("Enter recipe name to delete:")
+    name = input()
+
+    if name in recipes:
+        del recipes[name]
+        print("Recipe deleted!\n")
+    else:
+        print("Recipe not found!\n")
+
+
+def search_recipe():
+    print("Enter keyword to search:")
+    keyword = input().lower()
+
+    found = False
+    for name in recipes:
+        if keyword in name.lower():
+            print("-", name)
+            found = True
+
+    if not found:
+        print("No recipes found matching keyword.")
+    print()
+
+
+def main():
+    while True:
+        print("1. Add Recipe")
+        print("2. View All Recipes")
+        print("3. View Recipe Details")
+        print("4. Delete Recipe")
+        print("5. Search Recipe")
+        print("6. Exit")
+        print("Choose an option:")
+        choice = input()
+
+        if choice == "1":
+            add_recipe()
+        elif choice == "2":
+            view_recipes()
+        elif choice == "3":
+            view_recipe_details()
+        elif choice == "4":
+            delete_recipe()
+        elif choice == "5":
+            search_recipe()
+        elif choice == "6":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice!\n")
+
+main()
