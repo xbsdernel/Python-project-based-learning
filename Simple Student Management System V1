@@ -1,0 +1,62 @@
+students = []
+
+def show_menu():
+    print("\n=== Student Management System ===")
+    print("1. Add student")
+    print("2. View all students")
+    print("3. Search by ID")
+    print("4. Remove student")
+    print("5. Exit")
+
+def add_student():
+    name = input("Enter name: ")
+    student_id = input("Enter ID: ")
+    major = input("Enter major: ")
+    grade = input("Enter GPA: ")
+
+    student = {"name": name, "id": student_id, "major": major, "grade": grade}
+    students.append(student)
+    print("Student added.")
+
+def view_students():
+    if not students:
+        print("No students yet.")
+    else:
+        print("\nList of Students:")
+        for s in students:
+            print(f"Name: {s['name']}, ID: {s['id']}, Major: {s['major']}, GPA: {s['grade']}")
+
+def search_student():
+    sid = input("Enter student ID: ")
+    for s in students:
+        if s["id"] == sid:
+            print(f"Found -> Name: {s['name']}, Major: {s['major']}, GPA: {s['grade']}")
+            return
+    print("Student not found.")
+
+def remove_student():
+    sid = input("Enter ID to remove: ")
+    for s in students:
+        if s["id"] == sid:
+            students.remove(s)
+            print("Student removed.")
+            return
+    print("No student with that ID.")
+
+while True:
+    show_menu()
+    choice = input("Choose: ")
+
+    if choice == "1":
+        add_student()
+    elif choice == "2":
+        view_students()
+    elif choice == "3":
+        search_student()
+    elif choice == "4":
+        remove_student()
+    elif choice == "5":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice.")
