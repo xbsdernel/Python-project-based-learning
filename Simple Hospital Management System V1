@@ -1,0 +1,64 @@
+patients = []
+
+def show_menu():
+    print("\n=== Hospital Management System ===")
+    print("1. Add patient")
+    print("2. View all patients")
+    print("3. Search by name")
+    print("4. Remove patient")
+    print("5. Exit")
+
+def add_patient():
+    name = input("Enter patient name: ")
+    age = input("Enter age: ")
+    disease = input("Enter disease: ")
+
+    patient = {"name": name, "age": age, "disease": disease}
+    patients.append(patient)
+    print("Patient added successfully!")
+
+def view_patients():
+    if not patients:
+        print("No patients found.")
+        return
+    print("\nList of patients:")
+    for i, p in enumerate(patients, start=1):
+        print(f"{i}. Name: {p['name']}, Age: {p['age']}, Disease: {p['disease']}")
+
+def search_patient():
+    name = input("Enter name to search: ")
+    found = False
+    for p in patients:
+        if p["name"].lower() == name.lower():
+            print(f"Found -> Name: {p['name']}, Age: {p['age']}, Disease: {p['disease']}")
+            found = True
+            break
+    if not found:
+        print("Patient not found.")
+
+def remove_patient():
+    name = input("Enter name to remove: ")
+    for p in patients:
+        if p["name"].lower() == name.lower():
+            patients.remove(p)
+            print("Patient removed.")
+            return
+    print("No such patient found.")
+
+while True:
+    show_menu()
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        add_patient()
+    elif choice == "2":
+        view_patients()
+    elif choice == "3":
+        search_patient()
+    elif choice == "4":
+        remove_patient()
+    elif choice == "5":
+        print("Exiting system...")
+        break
+    else:
+        print("Invalid choice, try again.")
