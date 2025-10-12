@@ -1,0 +1,85 @@
+Employees = []
+
+class Employee:
+    def __init__(self, name, age, salary):
+        self.name = name
+        self.age = age
+        self.salary = salary
+
+    def __str__(self):
+        return f"{self.name} is {self.age} years old, salary: {self.salary}$"
+
+def enter_employee_data():
+    name = input("Enter your name: ")
+    age = int(input("Enter your age: "))
+    salary = int(input("Enter your salary: "))
+    return name, age, salary
+
+def print_all_employees():
+    if len(Employees) == 0:
+        print("There are no employees")
+    else:
+        print("\n Employees are:")
+        index = 1
+        for emp in Employees:
+            print(f"{index}- Employee {emp.name} has {emp.age} years old, his salary {emp.salary}$.")
+            index += 1
+        print("\n")
+
+def Delete_by_age():
+    try:
+        startAge = int(input("Enter age from: "))
+        endAge = int(input("Enter age to: "))
+        if startAge > endAge or startAge < 17 or startAge > 100 or endAge > 100:
+            raise ValueError
+        else:
+            for emp in Employees:
+                if emp.age >= startAge and emp.age <= endAge:
+                    print(f"Deleting {emp.name}")
+                    Employees.remove(emp)
+    except ValueError:
+        print("Sorry, you can't delete this age")
+
+def Update_Salary_by_name(name, salary):
+    for emp in Employees:
+        if emp.name == name:
+            emp.salary = salary
+            print(f"{name}`s salary has been updated!")
+            break
+    else:
+        print("We have`t find an employee with that name!")
+
+
+def Front_end():
+    global choice
+    while True:
+        print("Program options:")
+        print("1. Add new employee")
+        print("2. Print all employees")
+        print("3. Delete by age")
+        print("4. Update Salary by name")
+        print("5. Exit")
+
+        try:
+            choice = int(input("Enter your choice from 1 to 5: "))
+            if choice < 1 or choice > 5:
+                raise ValueError
+        except ValueError:
+            print("Please enter a valid number from 1 to 5!")
+
+        if choice == 1:
+            name, age, salary = enter_employee_data()
+            emp = Employee(name, age, salary)
+            Employees.append(emp)
+        elif choice == 2:
+            print_all_employees()
+        elif choice == 3:
+            Delete_by_age()
+        elif choice == 4:
+            name = input("Enter your employee`s name: ")
+            salary = int(input("Enter your updated salary: "))
+            Update_Salary_by_name(name, salary)
+        elif choice == 5:
+            break
+
+Front_end()
